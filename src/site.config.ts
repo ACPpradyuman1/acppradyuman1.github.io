@@ -2,7 +2,7 @@ export const site = {
   wordmark: "prateek",
   social: [
     { label: "linkedin", href: "https://www.linkedin.com/in/prateek-katkam/" },
-    { label: "email", href: "mailto:saipratheek0@gmail.com" },
+    { label: "email", href: "mailto:saiprateekkatkam@gmail.com" },
     { label: "x", href: "https://x.com/prateek_kat" },
     { label: "github", href: "https://github.com/ACPpradyuman1" },
   ],
