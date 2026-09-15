@@ -3,7 +3,6 @@ import Base from "../../layouts/Base.astro";
 import Header from "../../components/Header.astro";
 import { getCollection, render } from "astro:content";
 import { getSortedPosts, formatDate } from "../../lib/posts";
-import { site } from "../../site.config";
 
 export async function getStaticPaths() {
   const posts = await getCollection("writing", ({ data }) => !data.draft);
@@ -65,9 +64,4 @@ const next = index > 0 ? allPosts[index - 1] : undefined;
       )}
     </div>
   </div>
-
-  <footer class="site-footer">
-    <a href="/">&larr; all writing</a>
-    <div>{site.footerNote}</div>
-  </footer>
 </Base>

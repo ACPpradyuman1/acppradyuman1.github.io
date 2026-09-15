@@ -12,5 +12,4 @@ export const site = {
   ],
   standfirst:
     "investment theses, company analysis, and whatever else is worth thinking through in public. long where it needs to be, short where it doesn't.",
-  footerNote: "written in public since 2024",
 };

@@ -1,7 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
-import { site } from "../site.config";
 ---
 
 <Base title="prateek — about">
@@ -29,14 +28,9 @@ import { site } from "../site.config";
       <h2>elsewhere</h2>
       <p>
         [[ PLACEHOLDER: any other things worth linking — a firm, a podcast,
-        past work. Socials are already in the header/footer, so this is for
+        past work. Socials are already in the header, so this is for
         anything else. ]]
       </p>
     </div>
   </div>
-
-  <footer class="site-footer">
-    <a href="/">&larr; all writing</a>
-    <div>{site.footerNote}</div>
-  </footer>
 </Base>
