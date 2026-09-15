@@ -1,7 +1,6 @@
 ---
 import Header from "./Header.astro";
 import PostRow from "./PostRow.astro";
-import PixelBand from "./PixelBand.astro";
 import { site, filters } from "../site.config";
 import { formatDate, groupByYear } from "../lib/posts";
 import type { Post } from "../lib/posts";
@@ -55,5 +54,3 @@ const years = groupByYear(posts);
     ))
   }
 </div>
-
-<PixelBand variant="skyline" />

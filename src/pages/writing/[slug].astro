@@ -1,7 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Header from "../../components/Header.astro";
-import PixelBand from "../../components/PixelBand.astro";
 import { getCollection, render } from "astro:content";
 import { getSortedPosts, formatDate } from "../../lib/posts";
 import { site } from "../../site.config";
@@ -66,8 +65,6 @@ const next = index > 0 ? allPosts[index - 1] : undefined;
       )}
     </div>
   </div>
-
-  <PixelBand variant="treeline" />
 
   <footer class="site-footer">
     <a href="/">&larr; all writing</a>
