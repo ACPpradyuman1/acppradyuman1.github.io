@@ -1,16 +1,15 @@
 ---
 import Header from "./Header.astro";
 import PostRow from "./PostRow.astro";
-import { site, filters } from "../site.config";
+import { site } from "../site.config";
 import { formatDate, groupByYear } from "../lib/posts";
 import type { Post } from "../lib/posts";
 
 interface Props {
   posts: Post[];
-  activeFilter: string;
 }
 
-const { posts, activeFilter } = Astro.props;
+const { posts } = Astro.props;
 const years = groupByYear(posts);
 ---
 
@@ -22,19 +21,6 @@ const years = groupByYear(posts);
       <h1>writing</h1>
       <p>{site.standfirst}</p>
     </div>
-  </div>
-
-  <div class="chips">
-    {
-      filters.map((f) => (
-        <a
-          href={f.value === "all" ? "/" : `/tag/${f.value}`}
-          class={`chip ${f.value === activeFilter ? "active" : ""}`}
-        >
-          {f.label}
-        </a>
-      ))
-    }
   </div>
 
   {

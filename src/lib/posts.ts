@@ -27,17 +27,3 @@ export function groupByYear(posts: Post[]): { label: string; posts: Post[] }[] {
     .sort((a, b) => b[0] - a[0])
     .map(([year, posts]) => ({ label: String(year), posts }));
 }
-
-const KIND_TO_TAG: Record<Post["data"]["kind"], string> = {
-  thesis: "theses",
-  analysis: "markets",
-  teardown: "teardowns",
-  note: "notes",
-};
-
-export function tagsForFilter(filter: string, posts: Post[]): Post[] {
-  if (filter === "all") return posts;
-  return posts.filter(
-    (p) => p.data.tags.includes(filter) || KIND_TO_TAG[p.data.kind] === filter
-  );
-}
