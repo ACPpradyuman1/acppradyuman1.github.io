@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #faf8f4; }
+  a { color: #1a1917; text-decoration: none; }
+  a:hover { color: #4c6b5a; }
+  ::selection { background: #dfe7e0; }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #faf8f4; color: #1a1917; font-family: Newsreader, Georgia, serif;">
+
+  <div style="max-width: 760px; margin: 0 auto; padding: 0 28px;">
+
+    <header style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; padding: 30px 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px;">
+      <a href="Writing.dc.html" style="letter-spacing: 0.02em;">prateek</a>
+      <div style="display: flex; gap: 14px; justify-content: center; font-size: 11.5px;">
+        <a href="#" style="color: #66625a;" style-hover="color: #1a1917;">linkedin</a>
+        <a href="#" style="color: #66625a;" style-hover="color: #1a1917;">email</a>
+        <a href="#" style="color: #66625a;" style-hover="color: #1a1917;">x</a>
+      </div>
+      <nav style="display: flex; gap: 20px; justify-content: flex-end; color: #66625a;">
+        <a href="Writing.dc.html" style="color: #1a1917; border-bottom: 1px solid #4c6b5a; padding-bottom: 2px;">writing</a>
+        <a href="#" style="color: #66625a;" style-hover="color: #1a1917;">about</a>
+      </nav>
+    </header>
+
+    <article style="border-top: 1px solid #e6e1d8; padding: 56px 0 0;">
+
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #66625a;">
+        <span style="color: #4c6b5a;">{{ kind }}</span>
+        <span>{{ date }}</span>
+        <span>{{ readTime }}</span>
+      </div>
+
+      <h1 style="margin: 16px 0 0; font-size: 42px; font-weight: 300; letter-spacing: -0.015em; line-height: 1.1; max-width: 26ch;">{{ title }}</h1>
+      <p style="margin: 18px 0 0; font-size: 20px; line-height: 1.5; color: #55524a; max-width: 52ch; text-wrap: pretty;">{{ dek }}</p>
+
+      <div style="margin: 40px 0 44px; height: 1px; background: #e6e1d8;"></div>
+
+      <div style="max-width: 62ch; font-size: 19px; line-height: 1.68; color: #241f1a;">
+
+        <p style="margin: 0;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; color: #4c6b5a;">The opening paragraph</span> carries the claim in the first two sentences. Replace this body copy with your own — the structure below shows every element the page supports, so you can see how a full thesis reads before you paste one in.</p>
+
+        <p style="margin: 22px 0 0;">Body paragraphs sit at a 62-character measure, which is where serif text at this size stops tiring the eye. Line height is loose enough for long arguments and tight enough that a screen holds a complete thought.</p>
+
+        <h2 style="margin: 44px 0 0; font-size: 15px; font-weight: 500; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5d;">Section heading</h2>
+        <p style="margin: 14px 0 0;">Mono section headings keep the hierarchy visible without competing with the serif titles. One level of heading is usually enough; two is the limit before a piece needs to become two pieces.</p>
+
+        <blockquote style="margin: 32px 0; padding: 4px 0 4px 22px; border-left: 2px solid #4c6b5a; font-size: 21px; line-height: 1.5; color: #3a352e;">A pull quote for the line you want the reader to leave with. Keep it to one sentence.</blockquote>
+
+        <p style="margin: 0;">Inline emphasis uses <em style="font-style: italic;">italics</em> and <strong style="font-weight: 500;">medium weight</strong> rather than colour, so the page keeps its single accent. Figures and tickers read as <span style="font-family: 'JetBrains Mono', monospace; font-size: 16px; background: #f2eee6; padding: 1px 5px;">$AAPL</span> in mono.</p>
+
+        <div style="margin: 34px 0; border: 1px solid #e6e1d8; background: #fff;">
+          <div style="padding: 14px 18px; border-bottom: 1px solid #e6e1d8; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5d;">the numbers</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));">
+            <div style="padding: 18px; border-right: 1px solid #f0ece3;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px;">00.0%</div>
+              <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #66625a;">metric one</div>
+            </div>
+            <div style="padding: 18px; border-right: 1px solid #f0ece3;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px;">0.0x</div>
+              <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #66625a;">metric two</div>
+            </div>
+            <div style="padding: 18px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px;">$0M</div>
+              <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #66625a;">metric three</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin: 44px 0 0; font-size: 15px; font-weight: 500; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5d;">Where this breaks</h2>
+        <p style="margin: 14px 0 0;">Every thesis gets a section for the case against it. Lists here use mono markers so they read as enumerated reasoning rather than bullets.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0 0;">
+          <div style="display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 6px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #4c6b5a; padding-top: 4px;">01</span>
+            <span>The first risk, stated plainly enough that a reader can disagree with it.</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 6px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #4c6b5a; padding-top: 4px;">02</span>
+            <span>The second, with the condition that would change your mind.</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 6px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #4c6b5a; padding-top: 4px;">03</span>
+            <span>The third, usually the one that actually matters.</span>
+          </div>
+        </div>
+
+        <p style="margin: 30px 0 0;">A closing paragraph returns to the claim and says what you would need to see next. No summary of what was just read.</p>
+
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 44px 0 0; padding: 22px 0; border-top: 1px solid #e6e1d8; font-family: 'JetBrains Mono', monospace; font-size: 11.5px;">
+        <span style="padding: 5px 11px; border: 1px solid #e6e1d8; color: #55524a;">theses</span>
+        <span style="padding: 5px 11px; border: 1px solid #e6e1d8; color: #55524a;">markets</span>
+      </div>
+
+    </article>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 10px 0 0;">
+      <a href="#" style="border: 1px solid #e6e1d8; background: #fff; padding: 20px;" style-hover="border-color: #1a1917;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5d;">← previous</div>
+        <div style="margin-top: 10px; font-size: 19px; line-height: 1.35;">Placeholder: the piece before this one</div>
+      </a>
+      <a href="#" style="border: 1px solid #e6e1d8; background: #fff; padding: 20px; text-align: right;" style-hover="border-color: #1a1917;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5d;">next →</div>
+        <div style="margin-top: 10px; font-size: 19px; line-height: 1.35;">Placeholder: the piece after this one</div>
+      </a>
+    </div>
+
+  </div>
+
+  <sc-if value="{{ showPixelArt }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width: 1100px; margin: 60px auto 0; padding: 0 28px;">
+      <div style="border: 1px solid #e6e1d8; background: #f7f4ed; overflow: hidden; line-height: 0;">
+        <svg viewBox="0 0 88 14" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" style="width: 100%; height: 96px; display: block;">
+          <rect x="0" y="0" width="88" height="14" fill="#f7f4ed"></rect>
+          <rect x="14" y="3" width="1" height="1" fill="#cfc8b8"></rect>
+          <rect x="41" y="2" width="1" height="1" fill="#cfc8b8"></rect>
+          <rect x="69" y="3" width="1" height="1" fill="#cfc8b8"></rect>
+          <rect x="0" y="10" width="20" height="3" fill="#dfe7e0"></rect>
+          <rect x="16" y="9" width="20" height="4" fill="#dfe7e0"></rect>
+          <rect x="34" y="11" width="20" height="2" fill="#dfe7e0"></rect>
+          <rect x="50" y="9" width="18" height="4" fill="#dfe7e0"></rect>
+          <rect x="64" y="10" width="24" height="3" fill="#dfe7e0"></rect>
+          <rect x="4" y="6" width="6" height="4" fill="#4c6b5a"></rect>
+          <rect x="5" y="5" width="4" height="1" fill="#4c6b5a"></rect>
+          <rect x="6" y="10" width="2" height="3" fill="#1a1917"></rect>
+          <rect x="16" y="4" width="7" height="5" fill="#1a1917"></rect>
+          <rect x="17" y="3" width="5" height="1" fill="#1a1917"></rect>
+          <rect x="19" y="9" width="2" height="4" fill="#1a1917"></rect>
+          <rect x="30" y="7" width="6" height="4" fill="#4c6b5a"></rect>
+          <rect x="31" y="6" width="4" height="1" fill="#4c6b5a"></rect>
+          <rect x="32" y="11" width="2" height="2" fill="#1a1917"></rect>
+          <rect x="45" y="5" width="7" height="5" fill="#4c6b5a"></rect>
+          <rect x="46" y="4" width="5" height="1" fill="#4c6b5a"></rect>
+          <rect x="48" y="10" width="2" height="3" fill="#1a1917"></rect>
+          <rect x="59" y="7" width="6" height="4" fill="#1a1917"></rect>
+          <rect x="60" y="6" width="4" height="1" fill="#1a1917"></rect>
+          <rect x="61" y="11" width="2" height="2" fill="#1a1917"></rect>
+          <rect x="74" y="5" width="7" height="5" fill="#4c6b5a"></rect>
+          <rect x="75" y="4" width="5" height="1" fill="#4c6b5a"></rect>
+          <rect x="77" y="10" width="2" height="3" fill="#1a1917"></rect>
+          <rect x="0" y="13" width="88" height="1" fill="#1a1917"></rect>
+        </svg>
+      </div>
+    </div>
+  </sc-if>
+
+  <footer style="max-width: 760px; margin: 0 auto; padding: 28px 28px 72px; display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #66625a;">
+    <a href="Writing.dc.html" style="color: #66625a;" style-hover="color: #1a1917;">← all writing</a>
+    <div>{{ footerNote }}</div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Placeholder: the case for X&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;dek&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Your one- or two-sentence summary of the argument goes here — the line that tells a reader whether to keep going.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;kind&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;thesis&quot;,&quot;analysis&quot;,&quot;teardown&quot;,&quot;note&quot;],&quot;default&quot;:&quot;thesis&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;date&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Aug 2026&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;readTime&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;12 min&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showPixelArt&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;footerNote&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;written in public since 2024&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      title: this.props.title ?? "Placeholder: the case for X",
+      dek: this.props.dek ?? "Your one- or two-sentence summary of the argument goes here — the line that tells a reader whether to keep going.",
+      kind: this.props.kind ?? "thesis",
+      date: this.props.date ?? "Aug 2026",
+      readTime: this.props.readTime ?? "12 min",
+      showPixelArt: this.props.showPixelArt ?? true,
+      footerNote: this.props.footerNote ?? "written in public since 2024"
+    };
+  }
+}
+
+</script>
+</body>
+</html>

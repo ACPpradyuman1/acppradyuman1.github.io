@@ -1,0 +1,59 @@
+---
+import Header from "./Header.astro";
+import PostRow from "./PostRow.astro";
+import PixelBand from "./PixelBand.astro";
+import { site, filters } from "../site.config";
+import { formatDate, groupByYear } from "../lib/posts";
+import type { Post } from "../lib/posts";
+
+interface Props {
+  posts: Post[];
+  activeFilter: string;
+}
+
+const { posts, activeFilter } = Astro.props;
+const years = groupByYear(posts);
+---
+
+<div class="container">
+  <Header active="writing" />
+
+  <div class="title-block">
+    <div class="standfirst">
+      <h1>writing</h1>
+      <p>{site.standfirst}</p>
+    </div>
+  </div>
+
+  <div class="chips">
+    {
+      filters.map((f) => (
+        <a
+          href={f.value === "all" ? "/" : `/tag/${f.value}`}
+          class={`chip ${f.value === activeFilter ? "active" : ""}`}
+        >
+          {f.label}
+        </a>
+      ))
+    }
+  </div>
+
+  {
+    years.map((year) => (
+      <section class="year-section">
+        <div class="year-label">{year.label}</div>
+        {year.posts.map((post) => (
+          <PostRow
+            href={`/writing/${post.id}`}
+            date={formatDate(post.data.date)}
+            kind={post.data.kind}
+            title={post.data.title}
+            dek={post.data.dek}
+          />
+        ))}
+      </section>
+    ))
+  }
+</div>
+
+<PixelBand variant="skyline" />

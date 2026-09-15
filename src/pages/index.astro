@@ -1,0 +1,11 @@
+---
+import Base from "../layouts/Base.astro";
+import WritingIndex from "../components/WritingIndex.astro";
+import { getSortedPosts } from "../lib/posts";
+
+const posts = await getSortedPosts();
+---
+
+<Base title="prateek — writing">
+  <WritingIndex posts={posts} activeFilter="all" />
+</Base>

@@ -1,0 +1,76 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import PixelBand from "../../components/PixelBand.astro";
+import { getCollection, render } from "astro:content";
+import { getSortedPosts, formatDate } from "../../lib/posts";
+import { site } from "../../site.config";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("writing", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const allPosts = await getSortedPosts();
+const index = allPosts.findIndex((p) => p.id === post.id);
+const previous = index >= 0 ? allPosts[index + 1] : undefined;
+const next = index > 0 ? allPosts[index - 1] : undefined;
+---
+
+<Base title={`${post.data.title} — prateek`} description={post.data.dek}>
+  <div class="container">
+    <Header active="writing" />
+
+    <article class="article-masthead">
+      <div class="article-meta">
+        <span class="kind">{post.data.kind}</span>
+        <span>{formatDate(post.data.date)}</span>
+        <span>{post.data.readTime}</span>
+      </div>
+
+      <h1>{post.data.title}</h1>
+      {post.data.dek && <p class="dek">{post.data.dek}</p>}
+
+      <div class="rule"></div>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      {
+        post.data.tags.length > 0 && (
+          <div class="tags">
+            {post.data.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </article>
+
+    <div class="prev-next">
+      {previous && (
+        <a href={`/writing/${previous.id}`} class="card">
+          <div class="label">&larr; previous</div>
+          <div class="card-title">{previous.data.title}</div>
+        </a>
+      )}
+      {next && (
+        <a href={`/writing/${next.id}`} class="card next">
+          <div class="label">next &rarr;</div>
+          <div class="card-title">{next.data.title}</div>
+        </a>
+      )}
+    </div>
+  </div>
+
+  <PixelBand variant="treeline" />
+
+  <footer class="site-footer">
+    <a href="/">&larr; all writing</a>
+    <div>{site.footerNote}</div>
+  </footer>
+</Base>

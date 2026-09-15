@@ -1,0 +1,25 @@
+---
+import { site } from "../site.config";
+
+interface Props {
+  active?: string;
+}
+
+const { active = "writing" } = Astro.props;
+---
+
+<header class="site-header">
+  <a href="/" class="wordmark">{site.wordmark}</a>
+  <div class="socials">
+    {site.social.map((s) => <a href={s.href}>{s.label}</a>)}
+  </div>
+  <nav>
+    {
+      site.nav.map((item) => (
+        <a href={item.href} class={item.label === active ? "active" : ""}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
