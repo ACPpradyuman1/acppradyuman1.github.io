@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
+import { site } from "../site.config";
 ---
 
 <Base title="prateek — about">
@@ -10,8 +11,32 @@ import Header from "../components/Header.astro";
     <div class="title-block">
       <div class="standfirst">
         <h1>about</h1>
-        <p>A short bio goes here — replace with your own.</p>
+        <p>[[ PLACEHOLDER: one-line standfirst about who you are and what you do. ]]</p>
       </div>
     </div>
+
+    <div class="prose">
+      <p>
+        [[ PLACEHOLDER: opening bio paragraph — who you are, what you spend
+        your time on, and why you write. Two or three sentences is enough. ]]
+      </p>
+
+      <p>
+        [[ PLACEHOLDER: second paragraph — background, current role, or the
+        angle you write from (e.g. what kind of investing/analysis you do). ]]
+      </p>
+
+      <h2>elsewhere</h2>
+      <p>
+        [[ PLACEHOLDER: any other things worth linking — a firm, a podcast,
+        past work. Socials are already in the header/footer, so this is for
+        anything else. ]]
+      </p>
+    </div>
   </div>
+
+  <footer class="site-footer">
+    <a href="/">&larr; all writing</a>
+    <div>{site.footerNote}</div>
+  </footer>
 </Base>
