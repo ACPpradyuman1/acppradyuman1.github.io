@@ -1,6 +1,6 @@
 ---
 title: "India designs the world's chips without owning them"
-dek: "whether two decades of semiconductor talent can convert into product IP, and what HrdWyr tells us about the odds."
+dek: "Whether two decades of semiconductor talent can convert into product IP, and what HrdWyr tells us about the odds."
 date: 2026-09-16
 readTime: "11 min"
 tags: ["semiconductors", "india"]
