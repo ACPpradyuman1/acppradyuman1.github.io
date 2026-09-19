@@ -149,10 +149,6 @@ a:hover {
   padding-top: 4px;
 }
 
-.post-row .rail .kind {
-  color: var(--accent);
-}
-
 .post-row .title {
   font-size: 22px;
   font-weight: 400;
@@ -227,10 +223,6 @@ a:hover {
   font-family: var(--mono);
   font-size: 11.5px;
   color: var(--muted);
-}
-
-.article-meta .kind {
-  color: var(--accent);
 }
 
 .article-masthead h1 {
@@ -323,6 +315,35 @@ a:hover {
   background: var(--inline-tint);
   padding: 1px 5px;
   border-radius: 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.prose th,
+.prose td {
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-label);
+  font-weight: 500;
+}
+
+.prose td:first-child,
+.prose th:first-child {
+  padding-left: 0;
 }
 
 /* Numbers block */

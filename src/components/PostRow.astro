@@ -2,18 +2,16 @@
 interface Props {
   href: string;
   date: string;
-  kind: string;
   title: string;
   dek?: string;
 }
 
-const { href, date, kind, title, dek } = Astro.props;
+const { href, date, title, dek } = Astro.props;
 ---
 
 <a href={href} class="post-row">
   <div class="rail">
     <div>{date}</div>
-    <div class="kind">{kind}</div>
   </div>
   <div>
     <div class="title">{title}</div>

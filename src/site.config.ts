@@ -11,5 +11,5 @@ export const site = {
     { label: "about", href: "/about" },
   ],
   standfirst:
-    "investment theses, company analysis, and whatever else is worth thinking through in public. long where it needs to be, short where it doesn't.",
+    "things worth thinking through in public, published as they're ready.",
 };

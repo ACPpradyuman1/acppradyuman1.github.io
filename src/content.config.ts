@@ -7,7 +7,6 @@ const writing = defineCollection({
     title: z.string(),
     dek: z.string().optional(),
     date: z.coerce.date(),
-    kind: z.enum(["thesis", "analysis", "teardown", "note"]),
     readTime: z.string(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
