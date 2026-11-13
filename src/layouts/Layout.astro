@@ -25,7 +25,7 @@ type Props = { crumbs?: { label: string; href: string }[] }
 const { crumbs } = Astro.props
 ---
 
-<html lang={SITE.locale} dir={SITE.dir}>
+<html lang={SITE.locale} dir={SITE.dir} data-theme="light">
   <MetaHead>
     <slot name="head" />
   </MetaHead>
