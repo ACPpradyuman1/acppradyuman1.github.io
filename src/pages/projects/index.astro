@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets"
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import cover from "@/assets/projects/habit-tracker/plan.jpg"
+
+const projects = [
+  {
+    href: "/projects/habit-tracker",
+    name: "Habit Tracker",
+    blurb: "A personal planner that turns habits, tasks, goals and a calendar into one plan for the day. Designed, built and shipped solo.",
+    meta: "Product · Next.js, Supabase, Groq",
+    cover,
+  },
+]
+---
+
+<Layout>
+  <MetaPage slot="head" title="Projects" />
+  <h1>Projects</h1>
+  <p class="lead">Things I have built end to end, from the problem through to a product people can use.</p>
+  <ul>
+    {projects.map((p) => (
+      <li>
+        <a href={p.href}>
+          <Image src={p.cover} alt={`${p.name} screenshot`} widths={[800, 1400]} sizes="(width >= 64rem) 42rem, 100vw" loading="eager" />
+          <h2>{p.name}</h2>
+          <p>{p.blurb}</p>
+          <span>{p.meta}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>
+
+<style>
+  h1 {
+    font-size: var(--step-2);
+    font-weight: var(--font-weight-medium);
+  }
+  .lead {
+    color: var(--muted-foreground);
+    margin-block: var(--space-2xs) var(--space-l);
+  }
+  ul { list-style: none; display: grid; gap: var(--space-l); }
+  a { display: block; text-decoration: none; color: inherit; }
+  a :global(img) {
+    inline-size: 100%;
+    block-size: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    margin-block-end: var(--space-s);
+    transition: border-color 0.2s;
+  }
+  a:hover :global(img) { border-color: var(--gray-8); }
+  h2 { font-size: var(--step-1); font-weight: var(--font-weight-medium); }
+  a p { color: var(--muted-foreground); margin-block: var(--space-3xs); }
+  span { font-size: var(--step--1); color: var(--gray-10); }
+</style>

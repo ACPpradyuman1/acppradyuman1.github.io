@@ -1,0 +1,189 @@
+---
+import { Image } from "astro:assets"
+import MetaPage from "@/components/MetaPage.astro"
+import Shot from "@/components/Shot.astro"
+import Layout from "@/layouts/Layout.astro"
+import plan from "@/assets/projects/habit-tracker/plan.jpg"
+import habits from "@/assets/projects/habit-tracker/habits.jpg"
+import tasks from "@/assets/projects/habit-tracker/tasks.jpg"
+import goals from "@/assets/projects/habit-tracker/goals.jpg"
+import review from "@/assets/projects/habit-tracker/review.jpg"
+import calendar from "@/assets/projects/habit-tracker/calendar.jpg"
+import assistant from "@/assets/projects/habit-tracker/assistant.jpg"
+import mPlan from "@/assets/projects/habit-tracker/m-plan.jpg"
+import mHabits from "@/assets/projects/habit-tracker/m-habits.jpg"
+
+const facts = [
+  ["Role", "Solo, product through to code"],
+  ["Timeline", "Four weeks, July to August 2026"],
+  ["Shipped", "146 commits, v1.58"],
+  ["Stack", "Next.js, Supabase, IndexedDB, Groq"],
+]
+---
+
+<Layout>
+  <MetaPage slot="head" title="Habit Tracker" description="A personal planner that turns habits, tasks, goals and a calendar into one plan for the day." />
+  <article>
+    <a class="back" href="/projects">← Projects</a>
+    <h1>Habit Tracker</h1>
+    <p class="dek">A personal planner that turns habits, tasks, goals and a calendar into one plan for the day.</p>
+
+    <dl class="facts">
+      {facts.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+    </dl>
+
+    <p class="links">
+      <a href="https://habit-tracker-acpprad.vercel.app" target="_blank" rel="noopener noreferrer">Live app ↗</a>
+      <a href="https://github.com/ACPpradyuman1/habit-tracker" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a>
+    </p>
+
+    <Shot src={plan} alt="The Plan page showing today's free slots, suggested tasks, goals and events" caption="The Plan page. Free time, habits, tasks and calendar events in one view, with a draft plan for the day already filled in." eager />
+
+    <prose-content>
+      <h2>Overview</h2>
+      <p>
+        I was running my week out of four apps. Habits were in one, tasks in another, goals in a notes file and the actual day in Outlook. Each app was fine on its own, but none of them knew about the others, so the real planning happened in my head every morning. This project started as a habit tracker and grew into a planner that does that morning step for me.
+      </p>
+
+      <h2>Problem</h2>
+      <p>
+        Most productivity tools are built around storing things, and very few help with the harder question of when something should actually get done. A task list does not know that I have a lecture from ten to eleven thirty, and a calendar does not know that the capstone draft is due at five. The gap is filled by the user, usually badly and usually at the start of a day that is already moving.
+      </p>
+      <p>
+        The second problem was trust. Tools that try to schedule for you tend to invent time that does not exist, or move things around without asking. Once that happens a couple of times the plan is ignored, and the tool goes back to being a list.
+      </p>
+
+      <h2>Users</h2>
+      <p>
+        The first user was me, a student juggling classes, recruiting, fitness and writing. That made the target narrow on purpose. Someone with a fixed calendar they do not control, a handful of habits they are trying to keep, and more tasks than time. The design question was always the same one, which is what this person needs to see at 7am to have a reasonable day.
+      </p>
+
+      <h2>Approach</h2>
+      <p>
+        Everything was organised around a single page, called Plan. It reads the calendar, works out the free gaps, and drafts a suggestion for each gap from open tasks and habits. Nothing is booked until it is accepted, and each slot can be scheduled, swapped for an alternative or left empty.
+      </p>
+    </prose-content>
+
+    <Shot src={habits} alt="Habits page with habit cards, streaks and a habit chain" caption="Habits, with targets by day, week or a custom range. Habits can be chained, so logging a run prompts the meditation that usually follows it." />
+
+    <prose-content>
+      <p>
+        Habits, tasks and goals were kept as separate objects but linked to each other, so progress rolls up. A task tagged to the capstone goal moves the goal forward when it is done, and focus time from the Pomodoro timer is counted against the same goal.
+      </p>
+    </prose-content>
+
+    <Shot src={tasks} alt="Tasks page with priorities, due dates and subtasks" caption="Tasks, with priorities, due dates, subtasks and time estimates that are compared against actual focus time." />
+    <Shot src={goals} alt="Goals page with rollup progress" caption="Goals roll up the habits and tasks linked to them, so progress is measured from real activity." />
+
+    <prose-content>
+      <h2>Key decisions</h2>
+      <p>
+        <strong>The AI extracts, it never schedules.</strong> The Assistant lets you talk through a day in plain language, for example "I have class from two to four and want an hour of reading before dinner." The model only pulls out the items, durations and constraints. The actual times are placed by a deterministic packer that can only use real free time. This was the most important call in the project, because it means the plan can be wrong about preference but never about availability.
+      </p>
+    </prose-content>
+
+    <Shot src={assistant} alt="Assistant page for planning a day in plain language" caption="The Assistant. A plan is proposed in conversation and written to the calendar only after it is confirmed." />
+
+    <prose-content>
+      <p>
+        <strong>Learn from behaviour before asking for settings.</strong> Instead of a long preferences screen, the app looks at history. How long tasks with a given tag actually take, what time of day a run usually happens, which item wins when two compete. This is plain statistics with no AI calls, and it is retrained with one click. When a suggestion is overridden, a short reason can be added ("gym is always in the morning"), and that reason is fed back into the same model.
+      </p>
+      <p>
+        <strong>Offline first.</strong> Every read and write goes to a local database on the device and syncs in the background. Logging a habit on a train with no signal works instantly, and the change is pushed when the phone is back online. A planner that fails when the network does gets abandoned quickly, so this was built in from the first week rather than added later.
+      </p>
+      <p>
+        <strong>Capture should take seconds.</strong> A single box, opened with one key or through Siri, takes a sentence like "logged gym, add dentist tomorrow at 3pm, finished the report" and applies each part separately. Deleting anything this way was left out on purpose, since a misheard delete costs far more than a missed add.
+      </p>
+
+      <h2>Trade-offs</h2>
+      <p>
+        Offline support made the data layer much harder. Two devices can now disagree for a while, and a few actions such as calendar sync have to wait for a connection. I accepted that because the alternative was an app that only works at a desk.
+      </p>
+      <p>
+        I also kept the AI on a short leash, which makes it less impressive in a demo. It will not reshuffle a whole week on its own. The view was that a planner is only useful if it is believed, and being right about time matters more than being clever about it.
+      </p>
+      <p>
+        A lot of features were added and later pulled back. The Plan page was decluttered twice, and several AI entry points were merged into one, once it was clear that more buttons were making the main flow harder to find.
+      </p>
+    </prose-content>
+
+    <Shot src={calendar} alt="Calendar month view with events and task due dates" caption="Calendar, synced from Outlook or Google feeds. Each event can be broken into a checklist linked to real tasks." />
+    <Shot src={review} alt="Weekly review with focus time and habit stats" caption="Review. Habit logs, tasks done and focus time for the week, compared against the previous period." />
+
+    <div class="mobile">
+      <Image src={mPlan} alt="Plan page on a phone" widths={[400, 800]} sizes="(width >= 40rem) 14rem, 45vw" />
+      <Image src={mHabits} alt="Habits page on a phone" widths={[400, 800]} sizes="(width >= 40rem) 14rem, 45vw" />
+    </div>
+    <p class="caption">Installed as an app on the phone, where most of the logging happens.</p>
+
+    <prose-content>
+      <h2>Outcome</h2>
+      <p>
+        The app went from an empty repository to version 1.58 in four weeks, across 146 commits. It is live, installable on iPhone as a home screen app, and runs on free tiers of Vercel and Supabase. Each release was written up in a changelog, including the bugs, which kept the scope honest and made it easy to see what had actually shipped.
+      </p>
+
+      <h2>Learnings</h2>
+      <p>
+        The biggest lesson was that trust is a feature. Every time the app suggested something impossible, I stopped looking at the plan for a day or two, and that pattern shaped almost every later decision. The second was that subtraction is real product work. Some of the best releases removed things, and the page got more useful each time it got shorter.
+      </p>
+      <p>
+        If I were to take it further, the next step would be testing it with a small group of other students. The current design is tuned to one person's week, and it is still an open question how much of the learned scheduling holds up for someone whose days look nothing like mine.
+      </p>
+    </prose-content>
+  </article>
+</Layout>
+
+<style>
+  .back {
+    font-size: var(--step--1);
+    color: var(--muted-foreground);
+    text-decoration: none;
+  }
+  h1 {
+    font-size: var(--step-3);
+    font-weight: var(--font-weight-medium);
+    margin-block-start: var(--space-xs);
+  }
+  .dek {
+    font-size: var(--step-1);
+    color: var(--muted-foreground);
+    margin-block: var(--space-2xs) var(--space-m);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-s);
+    padding-block: var(--space-s);
+    border-block: 1px solid var(--border);
+    @media (width >= 40rem) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  dt { font-size: var(--step--1); color: var(--muted-foreground); }
+  dd { font-size: var(--step--1); margin: 0; }
+  .links {
+    display: flex;
+    gap: var(--space-m);
+    margin-block: var(--space-s) var(--space-xs);
+    font-size: var(--step--1);
+  }
+  prose-content { display: block; }
+  prose-content :global(h2) { margin-block-start: var(--space-l); }
+  .mobile {
+    display: flex;
+    gap: var(--space-s);
+    justify-content: center;
+    margin-block-start: var(--space-m);
+  }
+  .mobile :global(img) {
+    inline-size: 45%;
+    max-inline-size: 14rem;
+    block-size: auto;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
+  .caption {
+    text-align: center;
+    font-size: var(--step--1);
+    color: var(--muted-foreground);
+    margin-block: var(--space-2xs) var(--space-m);
+  }
+</style>
