@@ -1,11 +1,66 @@
 ---
-import Base from "../layouts/Base.astro";
-import WritingIndex from "../components/WritingIndex.astro";
-import { getSortedPosts } from "../lib/posts";
+import BlogCard from "@/components/BlogCard.astro"
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { Image } from "astro:assets"
+import avatar from "@/assets/photos/avatar.jpg"
+import { getPosts } from "@/lib/content"
 
-const posts = await getSortedPosts();
+const posts = (await getPosts()).slice(0, 5)
 ---
 
-<Base title="prateek — writing">
-  <WritingIndex posts={posts} />
-</Base>
+<Layout>
+  <MetaPage slot="head" />
+  <intro-block>
+    <Image src={avatar} alt="Sai Prateek Katkam" width={88} height={88} densities={[1, 2]} loading="eager" />
+    <div>
+      <h1>Sai Prateek Katkam</h1>
+      <p>Writing about business, tech and everything I find interesting.</p>
+      <p class="creds"><a href="/about">ISB · Bain · Accenture · Qualcomm · IIT Hyderabad</a></p>
+    </div>
+  </intro-block>
+  <h2>Recent writing</h2>
+  <ul>
+    {posts.map((post) => <BlogCard post={post} />)}
+  </ul>
+  <a href="/blog">All writing →</a>
+</Layout>
+
+<style>
+  intro-block {
+    color: var(--muted-foreground);
+    margin-block-end: var(--space-l);
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    img {
+      flex: none;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    h1 {
+      font-size: var(--step-2);
+      font-weight: var(--font-weight-medium);
+      color: var(--foreground);
+      margin-block-end: var(--space-2xs);
+    }
+  }
+  .creds {
+    font-size: var(--step--1);
+    margin-block-start: var(--space-3xs);
+    a { text-decoration: none; }
+    a:hover { color: var(--foreground); }
+  }
+  h2 {
+    font-size: var(--step-0);
+    font-weight: var(--font-weight-medium);
+    margin-block-end: var(--space-s);
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    margin-block-end: var(--space-m);
+  }
+  a { color: var(--muted-foreground); }
+</style>
