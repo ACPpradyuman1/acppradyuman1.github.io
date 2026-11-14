@@ -14,10 +14,9 @@ import mPlan from "@/assets/projects/habit-tracker/m-plan.jpg"
 import mHabits from "@/assets/projects/habit-tracker/m-habits.jpg"
 
 const facts = [
-  ["Course", "Software Product Management, ISB"],
   ["Research", "60+ respondents, five streams"],
   ["Users", "42 weekly active at last count"],
-  ["Stack", "Next.js, Supabase, IndexedDB, Groq"],
+  ["Shipped", "Live web app, installable on phone"],
 ]
 
 const metrics = [
@@ -52,15 +51,15 @@ const metrics = [
     <prose-content>
       <h2>Overview</h2>
       <p>
-        This started in ISB's Software Product Management course, where every team takes one product from customer discovery to a live, measured launch inside a single term. Our team of six built To Be Done, a planner that proposes an order for a student's day and lets them throw it out. I kept building on the same idea afterwards, and this habit tracker is where most of that later work went.
+        This came out of ISB's Software Product Management course, where each group takes one product from customer discovery to a live, measured launch within a single term. I drove most of the work on ours, To Be Done, a planner that proposes an order for a student's day and lets them throw it out, with a small team helping on parts of the research and the pitch. I kept building on the same idea afterwards, and this habit tracker is where most of that later work went.
       </p>
       <p>
-        I was running my own week out of four apps at the time. Habits were in one, tasks in another, goals in a notes file and the actual day in Outlook. None of them knew about the others, so the real planning happened in my head every morning, and it turned out most of the people we spoke to were doing the same.
+        I was running my own week out of four apps at the time. Habits were in one, tasks in another, goals in a notes file and the actual day in Outlook. None of them knew about the others, so the real planning happened in my head every morning, and it turned out most of the people I spoke to were doing the same.
       </p>
 
       <h2>Research</h2>
       <p>
-        We ran five parallel research streams with more than sixty respondents, about 80% of them students. Three findings came back clearly enough to shape everything else. 93% wanted their calendar pulled in for them, 80% wanted tasks and habits in one view, and 80% wanted to review or override anything the AI suggested, with only about one in five happy to hand it over to autopilot.
+        I ran five parallel research streams with more than sixty respondents, about 80% of them students. Three findings came back clearly enough to shape everything else. 93% wanted their calendar pulled in for them, 80% wanted tasks and habits in one view, and 80% wanted to review or override anything the AI suggested, with only about one in five happy to hand it over to autopilot.
       </p>
       <p>
         The pain points were just as consistent. Habits falling off the radar was the most cited problem (12 of 20 in one stream), followed by switching between a calendar and a to-do list (9 of 20). The most wanted outcome was feeling less mentally cluttered (16 of 20), which is why the problem was framed around the cognitive load of deciding, not around organising tasks faster.
@@ -160,12 +159,12 @@ const metrics = [
         The AI was also kept on a short leash, which makes it less impressive in a demo. It will not reshuffle a whole week on its own. A planner is only useful if it is believed, and being right about time matters more than being clever about it.
       </p>
       <p>
-        Working professionals were left out of version one. We had exactly one in sixty respondents, and building for them would have meant designing against the thinnest data we had.
+        Working professionals were left out of version one. There was exactly one in sixty respondents, and building for them would have meant designing against the thinnest data I had.
       </p>
 
       <h2>Outcome</h2>
       <p>
-        To Be Done went live to our cohort during the course and was presented at Demo Day with real usage data. The cost to serve fits inside free infrastructure tiers, with model inference under ₹4 per active user per month. The habit tracker carried the same thesis further, going from an empty repository to version 1.58 in four weeks across 146 commits.
+        To Be Done went live to my cohort during the course and was presented at Demo Day with real usage data. The cost to serve fits inside free infrastructure tiers, with model inference under ₹4 per active user per month. The habit tracker carried the same thesis further, going from an empty repository to version 1.58 in four weeks across 146 commits.
       </p>
 
       <h2>Learnings</h2>
@@ -201,7 +200,7 @@ const metrics = [
     gap: var(--space-s);
     padding-block: var(--space-s);
     border-block: 1px solid var(--border);
-    @media (width >= 40rem) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @media (width >= 40rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   dt { font-size: var(--step--1); color: var(--muted-foreground); }
   dd { font-size: var(--step--1); margin: 0; }
