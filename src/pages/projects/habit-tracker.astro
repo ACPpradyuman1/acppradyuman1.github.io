@@ -14,10 +14,19 @@ import mPlan from "@/assets/projects/habit-tracker/m-plan.jpg"
 import mHabits from "@/assets/projects/habit-tracker/m-habits.jpg"
 
 const facts = [
-  ["Role", "Solo, product through to code"],
-  ["Timeline", "Four weeks, July to August 2026"],
-  ["Shipped", "146 commits, v1.58"],
+  ["Course", "Software Product Management, ISB"],
+  ["Research", "60+ respondents, five streams"],
+  ["Users", "42 weekly active at last count"],
   ["Stack", "Next.js, Supabase, IndexedDB, Groq"],
+]
+
+const metrics = [
+  { k: "AI suggestions rejected", v: "14.1%", note: "North star, lower is better" },
+  { k: "Weekly active users", v: "42", note: "Up 35% on the prior week" },
+  { k: "Signup conversion", v: "83.3%", note: "Started signup and finished it" },
+  { k: "Time to first task", v: "54s", note: "Median, from signup" },
+  { k: "Sessions", v: "112", note: "Doubled week on week" },
+  { k: "Task completion", v: "33.8%", note: "Down from 51.5%" },
 ]
 ---
 
@@ -33,7 +42,8 @@ const facts = [
     </dl>
 
     <p class="links">
-      <a href="https://habit-tracker-acpprad.vercel.app" target="_blank" rel="noopener noreferrer">Live app ↗</a>
+      <a href="https://habit-tracker-acpprad.vercel.app" target="_blank" rel="noopener noreferrer">Habit tracker ↗</a>
+      <a href="https://to-be-done-omega.vercel.app" target="_blank" rel="noopener noreferrer">To Be Done ↗</a>
       <a href="https://github.com/ACPpradyuman1/habit-tracker" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a>
     </p>
 
@@ -42,25 +52,39 @@ const facts = [
     <prose-content>
       <h2>Overview</h2>
       <p>
-        I was running my week out of four apps. Habits were in one, tasks in another, goals in a notes file and the actual day in Outlook. Each app was fine on its own, but none of them knew about the others, so the real planning happened in my head every morning. This project started as a habit tracker and grew into a planner that does that morning step for me.
+        This started in ISB's Software Product Management course, where every team takes one product from customer discovery to a live, measured launch inside a single term. Our team of six built To Be Done, a planner that proposes an order for a student's day and lets them throw it out. I kept building on the same idea afterwards, and this habit tracker is where most of that later work went.
+      </p>
+      <p>
+        I was running my own week out of four apps at the time. Habits were in one, tasks in another, goals in a notes file and the actual day in Outlook. None of them knew about the others, so the real planning happened in my head every morning, and it turned out most of the people we spoke to were doing the same.
       </p>
 
-      <h2>Problem</h2>
+      <h2>Research</h2>
       <p>
-        Most productivity tools are built around storing things, and very few help with the harder question of when something should actually get done. A task list does not know that I have a lecture from ten to eleven thirty, and a calendar does not know that the capstone draft is due at five. The gap is filled by the user, usually badly and usually at the start of a day that is already moving.
+        We ran five parallel research streams with more than sixty respondents, about 80% of them students. Three findings came back clearly enough to shape everything else. 93% wanted their calendar pulled in for them, 80% wanted tasks and habits in one view, and 80% wanted to review or override anything the AI suggested, with only about one in five happy to hand it over to autopilot.
       </p>
       <p>
-        The second problem was trust. Tools that try to schedule for you tend to invent time that does not exist, or move things around without asking. Once that happens a couple of times the plan is ignored, and the tool goes back to being a list.
+        The pain points were just as consistent. Habits falling off the radar was the most cited problem (12 of 20 in one stream), followed by switching between a calendar and a to-do list (9 of 20). The most wanted outcome was feeling less mentally cluttered (16 of 20), which is why the problem was framed around the cognitive load of deciding, not around organising tasks faster.
       </p>
 
       <h2>Users</h2>
       <p>
-        The first user was me, a student juggling classes, recruiting, fitness and writing. That made the target narrow on purpose. Someone with a fixed calendar they do not control, a handful of habits they are trying to keep, and more tasks than time. The design question was always the same one, which is what this person needs to see at 7am to have a reasonable day.
+        Three personas came out of the interviews. The Deadline Firefighter has no system at all and decides under pressure, usually in the hours before something is due. The Fragmented Tracker is already organised, just across too many apps. The Tool Skeptic has a system that works and does not want an algorithm near it.
+      </p>
+      <p>
+        The first two became growth targets. The Skeptic was the largest single group in one data set (45%) but scored lowest on trust (2.75 out of 5), so they were left out on purpose and kept as a design constraint instead. If a feature would put off a Skeptic, it would probably put off the other two a little as well.
+      </p>
+
+      <h2>Problem</h2>
+      <p>
+        The shared job was simple to state. Know what to prioritise today, without working it out by hand every morning. Most productivity tools are built around storing things, and very few help with the question of when something should actually get done. A task list does not know about a lecture from ten to eleven thirty, and a calendar does not know the capstone draft is due at five.
+      </p>
+      <p>
+        The second problem was trust. Tools that schedule for you tend to invent time that does not exist or move things without asking. Once that happens a couple of times, the plan is ignored and the tool goes back to being a list.
       </p>
 
       <h2>Approach</h2>
       <p>
-        Everything was organised around a single page, called Plan. It reads the calendar, works out the free gaps, and drafts a suggestion for each gap from open tasks and habits. Nothing is booked until it is accepted, and each slot can be scheduled, swapped for an alternative or left empty.
+        Everything was organised around one page, called Plan. It reads the calendar, works out the free gaps, and drafts a suggestion for each gap from open tasks and habits. Every suggestion carries a one-line reason. Nothing is booked until it is accepted, and each slot can be scheduled, swapped or left empty.
       </p>
     </prose-content>
 
@@ -68,7 +92,7 @@ const facts = [
 
     <prose-content>
       <p>
-        Habits, tasks and goals were kept as separate objects but linked to each other, so progress rolls up. A task tagged to the capstone goal moves the goal forward when it is done, and focus time from the Pomodoro timer is counted against the same goal.
+        The scope was cut deliberately. The first version had to prove the base loop with no AI at all, which meant one place for tasks, habits and calendar events, visible free slots, and manual ranking with a reason attached. Auto-ranking, learned time estimates and adaptive ordering were held back for the next release, along with anything that looked like gamification, team features or payments.
       </p>
     </prose-content>
 
@@ -78,7 +102,10 @@ const facts = [
     <prose-content>
       <h2>Key decisions</h2>
       <p>
-        <strong>The AI extracts, it never schedules.</strong> The Assistant lets you talk through a day in plain language, for example "I have class from two to four and want an hour of reading before dinner." The model only pulls out the items, durations and constraints. The actual times are placed by a deterministic packer that can only use real free time. This was the most important call in the project, because it means the plan can be wrong about preference but never about availability.
+        <strong>Suggest from day one.</strong> The original design had a seven-day calibration period, where the model would watch quietly before suggesting anything. It was cut after 40% of one research stream named setup hassle as the main reason they would stop using a tool. That stream had only fifteen responses, the weakest evidence in the whole study, and it still changed the product the most. The rejection of a bad first plan became the calibration instead.
+      </p>
+      <p>
+        <strong>The AI extracts, it never schedules.</strong> The Assistant lets you talk through a day in plain language, for example "I have class from two to four and want an hour of reading before dinner." The model only pulls out the items, durations and constraints. The actual times are placed by a deterministic packer that can only use real free time, so the plan can be wrong about preference but never about availability.
       </p>
     </prose-content>
 
@@ -86,24 +113,32 @@ const facts = [
 
     <prose-content>
       <p>
-        <strong>Learn from behaviour before asking for settings.</strong> Instead of a long preferences screen, the app looks at history. How long tasks with a given tag actually take, what time of day a run usually happens, which item wins when two compete. This is plain statistics with no AI calls, and it is retrained with one click. When a suggestion is overridden, a short reason can be added ("gym is always in the morning"), and that reason is fed back into the same model.
+        <strong>Every rejection is a lesson.</strong> Because each suggestion carries a reason, a rejected one tells the model exactly where it read the day wrong. When a suggestion is overridden, a short note can be added ("gym is always in the morning"), and that note is fed back into the same learned model. The suggestion itself is easy to copy, but a history of a user's disagreements is not.
       </p>
       <p>
-        <strong>Offline first.</strong> Every read and write goes to a local database on the device and syncs in the background. Logging a habit on a train with no signal works instantly, and the change is pushed when the phone is back online. A planner that fails when the network does gets abandoned quickly, so this was built in from the first week rather than added later.
-      </p>
-      <p>
-        <strong>Capture should take seconds.</strong> A single box, opened with one key or through Siri, takes a sentence like "logged gym, add dentist tomorrow at 3pm, finished the report" and applies each part separately. Deleting anything this way was left out on purpose, since a misheard delete costs far more than a missed add.
+        <strong>Offline first.</strong> Every read and write goes to a local database on the device and syncs in the background. Logging a habit on a train with no signal works instantly, and the change is pushed once the phone is back online.
       </p>
 
-      <h2>Trade-offs</h2>
+      <h2>Metrics</h2>
       <p>
-        Offline support made the data layer much harder. Two devices can now disagree for a while, and a few actions such as calendar sync have to wait for a connection. I accepted that because the alternative was an app that only works at a desk.
+        The north star was the AI suggestion rejection rate, the share of suggested plan items that users throw out. It was picked because it shows whether the product understands the person using it, and every other metric was arranged underneath it as a driver. Activation was defined as adding a first task, and week-four retention was set as the real test of whether the plan still mattered after onboarding.
       </p>
+    </prose-content>
+
+    <div class="metrics">
+      {metrics.map((m) => (
+        <div>
+          <span class="mk">{m.k}</span>
+          <span class="mv">{m.v}</span>
+          <span class="mn">{m.note}</span>
+        </div>
+      ))}
+    </div>
+    <p class="caption">Live dashboard, week of 8 to 12 August.</p>
+
+    <prose-content>
       <p>
-        I also kept the AI on a short leash, which makes it less impressive in a demo. It will not reshuffle a whole week on its own. The view was that a planner is only useful if it is believed, and being right about time matters more than being clever about it.
-      </p>
-      <p>
-        A lot of features were added and later pulled back. The Plan page was decluttered twice, and several AI entry points were merged into one, once it was clear that more buttons were making the main flow harder to find.
+        The numbers were mostly encouraging, with one clear warning. Usage grew quickly, but task completion fell from 51.5% to 33.8% over the same week, which suggests new users were adding more than they finished. Time to first task also went up, from 33 to 54 seconds, so onboarding got slower as more people came through it. Calendar connection was only 16.7%, well short of the 60% target in the spec, and that matters because the plan is only as good as the calendar behind it.
       </p>
     </prose-content>
 
@@ -117,17 +152,28 @@ const facts = [
     <p class="caption">Installed as an app on the phone, where most of the logging happens.</p>
 
     <prose-content>
+      <h2>Trade-offs</h2>
+      <p>
+        Offline support made the data layer much harder. Two devices can disagree for a while, and a few actions such as calendar sync have to wait for a connection. That was accepted because the alternative was a planner that only works at a desk.
+      </p>
+      <p>
+        The AI was also kept on a short leash, which makes it less impressive in a demo. It will not reshuffle a whole week on its own. A planner is only useful if it is believed, and being right about time matters more than being clever about it.
+      </p>
+      <p>
+        Working professionals were left out of version one. We had exactly one in sixty respondents, and building for them would have meant designing against the thinnest data we had.
+      </p>
+
       <h2>Outcome</h2>
       <p>
-        The app went from an empty repository to version 1.58 in four weeks, across 146 commits. It is live, installable on iPhone as a home screen app, and runs on free tiers of Vercel and Supabase. Each release was written up in a changelog, including the bugs, which kept the scope honest and made it easy to see what had actually shipped.
+        To Be Done went live to our cohort during the course and was presented at Demo Day with real usage data. The cost to serve fits inside free infrastructure tiers, with model inference under ₹4 per active user per month. The habit tracker carried the same thesis further, going from an empty repository to version 1.58 in four weeks across 146 commits.
       </p>
 
       <h2>Learnings</h2>
       <p>
-        The biggest lesson was that trust is a feature. Every time the app suggested something impossible, I stopped looking at the plan for a day or two, and that pattern shaped almost every later decision. The second was that subtraction is real product work. Some of the best releases removed things, and the page got more useful each time it got shorter.
+        The biggest lesson was that trust is a feature. Every suggestion that did not fit the day cost more attention than a good one earned, and that pattern shaped almost every later decision. The second was that subtraction is real product work. Some of the best releases removed things, and the main page got more useful each time it got shorter.
       </p>
       <p>
-        If I were to take it further, the next step would be testing it with a small group of other students. The current design is tuned to one person's week, and it is still an open question how much of the learned scheduling holds up for someone whose days look nothing like mine.
+        The open question is retention. The build was never the risky part. Whether students keep opening it four weeks in, and whether any of them would pay for it, is still to be proven, and the honest fallback if they will not is selling cohort-level insight to programme offices instead.
       </p>
     </prose-content>
   </article>
@@ -167,6 +213,25 @@ const facts = [
   }
   prose-content { display: block; }
   prose-content :global(h2) { margin-block-start: var(--space-l); }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xs);
+    margin-block-start: var(--space-m);
+    @media (width >= 40rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: var(--space-xs) var(--space-s);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: var(--gray-2);
+    }
+  }
+  .mk { font-size: var(--step--1); color: var(--muted-foreground); }
+  .mv { font-size: var(--step-2); font-weight: var(--font-weight-medium); line-height: 1.1; }
+  .mn { font-size: var(--step--2, 0.75rem); color: var(--gray-10); }
   .mobile {
     display: flex;
     gap: var(--space-s);
