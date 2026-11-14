@@ -1,0 +1,218 @@
+---
+import { Image } from "astro:assets"
+import MetaPage from "@/components/MetaPage.astro"
+import Shot from "@/components/Shot.astro"
+import Layout from "@/layouts/Layout.astro"
+import watchLater from "@/assets/projects/chrome-extensions/watch-later.jpg"
+import kindleflow from "@/assets/projects/chrome-extensions/kindleflow.jpg"
+import siteBlocker from "@/assets/projects/chrome-extensions/site-blocker.jpg"
+import blocked from "@/assets/projects/chrome-extensions/blocked.jpg"
+import tabRenamer from "@/assets/projects/chrome-extensions/tab-renamer.jpg"
+
+const facts = [
+  ["Extensions", "Four, each in its own folder"],
+  ["Stack", "Manifest V3, plain JavaScript, Python"],
+  ["Shipped", "Open source, load unpacked in Chrome"],
+]
+---
+
+<Layout>
+  <MetaPage slot="head" title="Chrome Extensions" description="Small browser tools I built because something I did every week was slower than it needed to be." />
+  <article>
+    <a class="back" href="/projects">← Projects</a>
+    <h1>Chrome Extensions</h1>
+    <p class="dek">Small browser tools I built because something I did every week was slower than it needed to be.</p>
+
+    <dl class="facts">
+      {facts.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+    </dl>
+
+    <p class="links">
+      <a href="https://github.com/ACPpradyuman1/chrome-extensions" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a>
+    </p>
+
+    <Shot src={watchLater} alt="YouTube Watch Later playlist with checkboxes on each video and a cleaner panel in the corner" caption="Watch Later Cleaner on my own playlist. 918 videos, checkboxes on every row, and a running total of how much watch time is selected." eager />
+
+    <prose-content>
+      <h2>Overview</h2>
+      <p>
+        None of these started as a product idea. Each one started with me doing the same annoying thing for the third or fourth time and deciding it was worth an evening to never do it again. The rule I kept to was one job per extension, no accounts, no servers of my own, and permissions limited to what that one job needs.
+      </p>
+      <p>
+        There are four of them in the repo. Watch Later Cleaner bulk-removes videos from YouTube's Watch Later list. KindleFlow turns a web article into a clean e-book and sends it to a Kindle. Site Blocker blocks the sites I lose time on, and Tab Renamer lets me name tabs so I can find them again.
+      </p>
+
+      <h2>Watch Later Cleaner</h2>
+      <p>
+        <strong>Why it exists.</strong> Watch Later is where I save things I mean to get to, and it had grown to more than 900 videos. The first hundred alone add up to over 54 hours. Most of it was stale, but YouTube gives you no way to select several videos and remove them together. The only route is one video at a time, open the three-dot menu, click remove, wait for the list to shift, and repeat. Clearing a few hundred that way is an afternoon of clicking, so I never did it, and the list kept growing until it was useless.
+      </p>
+      <p>
+        <strong>What it does.</strong> On the Watch Later page it adds a checkbox to every row and a small panel in the corner. You can tick videos by hand, select all, or select the last N, which is the quickest way to clear out the oldest saves. The panel shows how many videos are loaded, the total watch time, and how much time the current selection represents, which turned out to be the most persuasive part. Seeing "remove 3 (53m)" makes the decision feel real.
+      </p>
+      <p>
+        <strong>How it works.</strong> YouTube only loads part of a long playlist, so "Load all" scrolls the list until it stops growing. Removal drives YouTube's own menu for each selected video, one at a time with short random pauses, rather than calling any hidden endpoint. That is slower than it could be, but it behaves exactly like a person clicking, so nothing breaks when YouTube changes something behind the scenes, and there is a Stop button if you change your mind halfway.
+      </p>
+
+      <h2>KindleFlow</h2>
+      <p>
+        <strong>Why it exists.</strong> I read long articles much better on a Kindle than on a laptop, but getting an article there was a chore. Copy-paste loses the images, most "send to Kindle" tools keep the ads and cookie banners, and the charts I actually care about tend to get dropped.
+      </p>
+      <p>
+        <strong>What it does.</strong> One click pulls the article out of the page with Mozilla's Readability, and then either sends it straight to my Kindle as an EPUB with a generated cover, or downloads it as an EPUB, Markdown or clean HTML. There are two modes. With Google AI processing on, Gemini strips sponsored blocks and clutter while keeping the diagrams and tables, and adds a two or three line summary at the top. With it off, everything happens locally in a few milliseconds and nothing leaves the browser.
+      </p>
+    </prose-content>
+
+    <div class="pair">
+      <Image src={kindleflow} alt="KindleFlow popup with the article title, an AI processing toggle and four export actions" widths={[360, 720]} sizes="18rem" />
+    </div>
+    <p class="caption">KindleFlow. The article, a switch for AI processing, and four ways to get it out of the browser.</p>
+
+    <prose-content>
+      <p>
+        <strong>How it works.</strong> Building an EPUB and sending email is not something a browser extension can do on its own, so the heavy lifting runs in a small Python helper that Chrome starts only when it is needed and closes straight after. Images download in parallel and the cover is drawn while the model is still responding, so a typical build takes two to three seconds. Setup is a single installer script for Mac, Linux or Windows, and the Gemini key is the free tier, so it costs nothing to run.
+      </p>
+
+      <h2>Site Blocker</h2>
+      <p>
+        <strong>Why it exists.</strong> I wanted a blocker that did exactly one thing. Most of the ones in the store want an account, track usage, or push a subscription for features I did not need.
+      </p>
+      <p>
+        <strong>What it does.</strong> Type a domain, press enter, and it is blocked. Visiting it shows a plain page saying it is on your list. The input is cleaned up automatically, so pasting a full link works the same as typing the domain.
+      </p>
+    </prose-content>
+
+    <div class="pair">
+      <Image src={siteBlocker} alt="Site Blocker popup with a list of blocked domains" widths={[300, 600]} sizes="18rem" />
+    </div>
+    <Shot src={blocked} alt="Blocked page saying instagram.com is on your blocklist" caption="The page you land on instead. Deliberately boring." />
+
+    <prose-content>
+      <p>
+        <strong>How it works.</strong> It uses Chrome's built-in request rules, so the browser blocks the site before the page even starts loading. The extension is not reading every page you visit, and it costs nothing on sites that are not on the list. The rules are rebuilt every time Chrome starts, and the list never leaves the device.
+      </p>
+
+      <h2>Tab Renamer</h2>
+      <p>
+        <strong>Why it exists.</strong> On a working day I would have six tabs that all said "Google Slides" or "Untitled document", and Slack or Gmail kept changing their titles to show unread counts. Finding the right tab meant clicking through all of them.
+      </p>
+      <p>
+        <strong>What it does.</strong> Open the popup, type a name, and the tab keeps it. Reset puts the original title back.
+      </p>
+    </prose-content>
+
+    <div class="pair">
+      <Image src={tabRenamer} alt="Tab Renamer popup with a custom title and Rename and Reset buttons" widths={[300, 600]} sizes="18rem" />
+    </div>
+
+    <prose-content>
+      <p>
+        <strong>How it works.</strong> The hard part was making the name stick. Web apps rewrite their own title all the time, so the extension watches the title and puts the custom name back the moment a site changes it, and reapplies it after a reload. Names are held only for the current browser session and cleared when the tab closes.
+      </p>
+
+      <h2>Trade-offs</h2>
+      <p>
+        Watch Later Cleaner is slower than it needs to be. Clicking through YouTube's own menu takes a second or so per video, where a direct call would be near instant. I chose slow and reliable, because a tool that deletes things should never surprise you.
+      </p>
+      <p>
+        KindleFlow is the only one with a real setup step, because of the Python helper. I tried to keep everything inside the browser, but proper EPUB files and email delivery needed it, so the effort went into making the installer one command instead.
+      </p>
+      <p>
+        None of them are on the Chrome Web Store yet. They load unpacked from the repo, which is fine for me and anyone technical, but it is the obvious next step if other people are going to use them.
+      </p>
+
+      <h2>Learnings</h2>
+      <p>
+        The best small tools come from noticing friction you have stopped seeing. I had lived with a 900-video Watch Later list for years before it occurred to me that the problem was the missing select button, not my discipline. The other lesson was about permissions. Asking for less access made every extension simpler to build and much easier to trust, including by me.
+      </p>
+    </prose-content>
+  </article>
+</Layout>
+
+<style>
+  .back {
+    font-size: var(--step--1);
+    color: var(--muted-foreground);
+    text-decoration: none;
+  }
+  h1 {
+    font-size: var(--step-3);
+    font-weight: var(--font-weight-medium);
+    margin-block-start: var(--space-xs);
+  }
+  .dek {
+    font-size: var(--step-1);
+    color: var(--muted-foreground);
+    margin-block: var(--space-2xs) var(--space-m);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-s);
+    padding-block: var(--space-s);
+    border-block: 1px solid var(--border);
+    @media (width >= 40rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  dt { font-size: var(--step--1); color: var(--muted-foreground); }
+  dd { font-size: var(--step--1); margin: 0; }
+  .links {
+    display: flex;
+    gap: var(--space-m);
+    margin-block: var(--space-s) var(--space-xs);
+    font-size: var(--step--1);
+  }
+  prose-content { display: block; }
+  prose-content :global(h2) { margin-block-start: var(--space-l); }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xs);
+    margin-block-start: var(--space-m);
+    @media (width >= 40rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: var(--space-xs) var(--space-s);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: var(--gray-2);
+    }
+  }
+  .mk { font-size: var(--step--1); color: var(--muted-foreground); }
+  .mv { font-size: var(--step-2); font-weight: var(--font-weight-medium); line-height: 1.1; }
+  .mn { font-size: var(--step--2, 0.75rem); color: var(--gray-10); }
+  .mobile {
+    display: flex;
+    gap: var(--space-s);
+    justify-content: center;
+    margin-block-start: var(--space-m);
+  }
+  .mobile :global(img) {
+    inline-size: 45%;
+    max-inline-size: 14rem;
+    block-size: auto;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
+  .caption {
+    text-align: center;
+    font-size: var(--step--1);
+    color: var(--muted-foreground);
+    margin-block: var(--space-2xs) var(--space-m);
+  }
+  .pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    justify-content: center;
+    align-items: flex-start;
+    margin-block-start: var(--space-m);
+  }
+  .pair :global(img) {
+    inline-size: auto;
+    max-inline-size: min(100%, 18rem);
+    block-size: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+  }
+</style>

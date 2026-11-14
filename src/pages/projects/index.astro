@@ -3,6 +3,7 @@ import { Image } from "astro:assets"
 import MetaPage from "@/components/MetaPage.astro"
 import Layout from "@/layouts/Layout.astro"
 import cover from "@/assets/projects/habit-tracker/plan.jpg"
+import extCover from "@/assets/projects/chrome-extensions/watch-later.jpg"
 
 const projects = [
   {
@@ -11,6 +12,13 @@ const projects = [
     blurb: "A personal planner that turns habits, tasks, goals and a calendar into one plan for the day. Built from ISB's Software Product Management course, with research from 60+ students and live users.",
     meta: "Product · Research, spec, build, metrics",
     cover,
+  },
+  {
+    href: "/projects/chrome-extensions",
+    name: "Chrome Extensions",
+    blurb: "Four small browser tools, including a bulk cleaner for YouTube's Watch Later list and a one-click article-to-Kindle publisher. Each one exists because something I did every week was slower than it needed to be.",
+    meta: "Build · Manifest V3, JavaScript, Python",
+    cover: extCover,
   },
 ]
 ---
